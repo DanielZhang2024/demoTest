@@ -7,6 +7,7 @@ import java.util.HashMap;
 @Data
 public final class ApiResponse {
 
+  //是我家穷
   private Integer code;
   private String errorMsg;
   private Object data;
