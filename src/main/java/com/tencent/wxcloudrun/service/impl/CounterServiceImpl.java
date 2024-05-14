@@ -31,5 +31,6 @@ public class CounterServiceImpl implements CounterService {
   @Override
   public void clearCount(Integer id) {
     countersMapper.clearCount(id);
+
   }
 }
