@@ -62,7 +62,7 @@ public class CoreServlet {
      </Articles>
      </com.tencent.wxcloudrun.weixin.message.resp.NewsMessage>
      */
-    @PostMapping(value = "/check")
+    @PostMapping("/check")
 	public String doPost(HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 		// TODO 消息的接收、处理、响应    
@@ -77,7 +77,6 @@ public class CoreServlet {
         System.out.println(respMessage);
         return respMessage;
 	}
-
 
 
 }

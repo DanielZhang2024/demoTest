@@ -1,9 +1,17 @@
 package com.tencent.wxcloudrun.weixin.controller;
 
+import com.tencent.wxcloudrun.weixin.WxService;
+import com.tencent.wxcloudrun.weixin.utils.AccessTokenH5;
+import com.tencent.wxcloudrun.weixin.utils.WxUserInfo;
+import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
+
+import javax.annotation.Resource;
+import java.net.URLEncoder;
 
 
 /**
@@ -12,18 +20,44 @@ import org.springframework.web.bind.annotation.RestController;
  * @Version 1.0
  **/
 @RestController
-@RequestMapping("/system/weChatLogin")
+@RequestMapping("/system/weChat")
 public class WxController {
+
+    @Resource
+    private RestTemplate restTemplate;
+
     String appId = "wxdfccfc491bf90233";
+//    String appId = "wx062f4f8f489f57a3";
+
     String appSecret = "fa4087c4a374a54460836617a996f873";
+//    String appSecret = "4115bc85b36c527bdbbf30baebe98644";
 //    String sym = "http://wzigqy.natappfree.cc";
 
     final Logger logger;
+    final WxService wxService;
 
-    public WxController() {
+    public WxController(@Autowired WxService wxService) {
         this.logger = LoggerFactory.getLogger(WxController.class);
+        this.wxService = wxService;
     }
 
+    @GetMapping("getCode")
+    public String getCode(){
+        String url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+appId+"&redirect_uri="+ URLEncoder.encode("http://192.168.0.19:8080") +"&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
+        return url;
+    }
+
+    @PostMapping("getUserInfo")
+    public WxUserInfo getUserInfo(@RequestBody String code){
+        String url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid="+appId+"&secret="+appSecret+"&code="+code+"&grant_type=authorization_code";
+        AccessTokenH5 accessToken = restTemplate.getForObject(url, AccessTokenH5.class);
+        String accessToken1 = accessToken.getAccess_token();
+        System.out.println(accessToken1);
+        String reUrl = "https://api.weixin.qq.com/sns/userinfo?access_token="+accessToken1+"&openid=OPENID&lang=zh_CN";
+        WxUserInfo wxUserInfo = restTemplate.getForObject(reUrl, WxUserInfo.class);
+        System.out.println(wxUserInfo.toString());
+        return wxUserInfo;
+    }
 //    private String prefix = "system/info";
 //
 //    private final String TOKEN = "access_token";
