@@ -78,7 +78,27 @@ public class CoreService {
                 String eventType = requestMap.get("Event");
                 // 订阅
                 if (eventType.equals(MessageUtil.EVENT_TYPE_SUBSCRIBE)) {
-                    respContent = "感谢您的关注！";
+                    String eventKey = requestMap.get("EventKey");
+                    if( eventKey != null){
+                        Article article = new Article();
+                        article.setTitle("测试标题");
+                        article.setDescription("这是一句测试文案，参数是:"+eventKey);
+                        article.setPicUrl("https://7072-prod-7gln35vf511d8e79-1326501488.tcb.qcloud.la/0001.jpg?sign=5ffc77968440200f059ae3b6b96db22a&t=1715529933");
+                        article.setUrl("https://prod-7gln35vf511d8e79-1326501488.tcloudbaseapp.com");
+                        List<Article> articles = new ArrayList<>();
+                        articles.add(article);
+                        NewsMessage newsMessage = new NewsMessage();
+                        newsMessage.setFromUserName(toUserName);
+                        newsMessage.setToUserName(fromUserName);
+                        newsMessage.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_NEWS);
+                        newsMessage.setCreateTime(System.currentTimeMillis()/1000);
+                        newsMessage.setArticleCount(1);
+                        newsMessage.setArticles(articles);
+                        return MessageUtil.newsMessageToXml(newsMessage);
+                    }else {
+                        respContent = "感谢你的关注！";
+                    }
+
                 }
                 // 取消订阅
                 else if (eventType.equals(MessageUtil.EVENT_TYPE_UNSUBSCRIBE)) {
