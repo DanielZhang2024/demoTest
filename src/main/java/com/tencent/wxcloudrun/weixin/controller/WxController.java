@@ -43,7 +43,7 @@ public class WxController {
 
     @GetMapping("getCode")
     public String getCode(){
-        String url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+appId+"&redirect_uri="+ URLEncoder.encode("http://192.168.0.19:8080") +"&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
+        String url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+appId+"&redirect_uri="+ URLEncoder.encode("https://prod-7gln35vf511d8e79-1326501488.tcloudbaseapp.com") +"&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
         return url;
     }
 
