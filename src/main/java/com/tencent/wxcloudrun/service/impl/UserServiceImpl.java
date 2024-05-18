@@ -7,14 +7,12 @@ import com.tencent.wxcloudrun.common.utils.ApiResponse;
 import com.tencent.wxcloudrun.common.weixin.WxService;
 import com.tencent.wxcloudrun.common.weixin.utils.WxUserInfo;
 import com.tencent.wxcloudrun.dao.UserMapper;
-import com.tencent.wxcloudrun.model.TusRecord;
 import com.tencent.wxcloudrun.model.User;
 import com.tencent.wxcloudrun.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -50,6 +48,7 @@ public class UserServiceImpl implements UserService {
         user.setLanguage(wxUserInfo.getLanguage());
         user.setNickname(wxUserInfo.getNickname());
         user.setHeadImgUrl(wxUserInfo.getHeadimgurl());
+        user.setLevel(1);
         user.setSex(wxUserInfo.getSex());
         user.setHeadBox("https://7072-prod-7gln35vf511d8e79-1326501488.tcb.qcloud.la/defaultHeadBox.webp?sign=3f4f3aa3c868b83d3068ba93712f3052&t=1716029054");
         userMapper.insert(user);
@@ -58,7 +57,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public ApiResponse login(String code, Integer shopId) {
         WxUserInfo userInfo = wxService.getUserInfo(code);
-        if(userInfo == null){
+        if(userInfo == null || userInfo.getOpenid() == null){
             return ApiResponse.error("授权失败");
         }
         User user = getUserByOpenId(userInfo.getOpenid());

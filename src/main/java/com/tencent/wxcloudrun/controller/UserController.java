@@ -7,11 +7,12 @@ import com.tencent.wxcloudrun.service.DscService;
 import com.tencent.wxcloudrun.service.TusService;
 import com.tencent.wxcloudrun.service.UserService;
 import com.tencent.wxcloudrun.service.VeService;
+import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 @RestController
 public class UserController {
@@ -29,8 +30,10 @@ public class UserController {
         this.veService = veService;
     }
 
-    @GetMapping("/user/login")
-    public ApiResponse login(@RequestParam String code, @RequestParam Integer shopId){
+    @PostMapping("/user/login")
+    public ApiResponse login(@RequestBody JSONObject jsonObject){
+        String code = jsonObject.getString("code");
+        int shopId = jsonObject.getInt("shopId");
         ApiResponse loginRet = userService.login(code,shopId);
         if(!loginRet.isOk()){
             return loginRet;

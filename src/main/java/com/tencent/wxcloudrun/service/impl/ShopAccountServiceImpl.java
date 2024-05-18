@@ -70,7 +70,4 @@ public class ShopAccountServiceImpl implements ShopAccountService {
         }
         return ApiResponse.ok(shopAccount);
     }
-
-
-
 }

@@ -26,12 +26,10 @@ public class WxController {
     @Resource
     private RestTemplate restTemplate;
 
-    String appId = "wxdfccfc491bf90233";
-//    String appId = "wx062f4f8f489f57a3";
-
-    String appSecret = "fa4087c4a374a54460836617a996f873";
-//    String appSecret = "4115bc85b36c527bdbbf30baebe98644";
-//    String sym = "http://wzigqy.natappfree.cc";
+//    String appId = "wxdfccfc491bf90233";
+//    String appSecret = "fa4087c4a374a54460836617a996f873";
+    String appId = "wx062f4f8f489f57a3";
+    String appSecret = "4115bc85b36c527bdbbf30baebe98644";
 
     final Logger logger;
     final WxService wxService;
@@ -42,8 +40,9 @@ public class WxController {
     }
 
     @GetMapping("getCode")
-    public String getCode(){
-        String url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+appId+"&redirect_uri=https://prod-7gln35vf511d8e79-1326501488.tcloudbaseapp.com&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
+    public String getCode(@RequestParam Integer shopId){
+//        String url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+appId+"&redirect_uri=https://prod-7gln35vf511d8e79-1326501488.tcloudbaseapp.com&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
+        String url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+appId+"&redirect_uri=http://192.168.0.19:8080?shopId="+shopId+"&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
         return url;
     }
 
