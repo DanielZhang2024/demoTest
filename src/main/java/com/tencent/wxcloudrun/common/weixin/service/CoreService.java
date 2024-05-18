@@ -1,9 +1,15 @@
 package com.tencent.wxcloudrun.common.weixin.service;
 
+import com.tencent.wxcloudrun.common.utils.ApiResponse;
 import com.tencent.wxcloudrun.common.weixin.message.resp.Article;
 import com.tencent.wxcloudrun.common.weixin.message.resp.NewsMessage;
 import com.tencent.wxcloudrun.common.weixin.message.resp.TextMessage;
 import com.tencent.wxcloudrun.common.weixin.utils.MessageUtil;
+import com.tencent.wxcloudrun.dao.ShopAccountMapper;
+import com.tencent.wxcloudrun.model.ShopAccount;
+import com.tencent.wxcloudrun.service.ShopAccountService;
+import com.tencent.wxcloudrun.service.impl.ShopAccountServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Connection;
@@ -81,10 +87,11 @@ public class CoreService {
                     String eventKey = requestMap.get("EventKey");
                     if( eventKey != null){
                         Article article = new Article();
-                        article.setTitle("测试标题");
-                        article.setDescription("这是一句测试文案，参数是:"+eventKey);
-                        article.setPicUrl("https://7072-prod-7gln35vf511d8e79-1326501488.tcb.qcloud.la/0001.jpg?sign=5ffc77968440200f059ae3b6b96db22a&t=1715529933");
-                        article.setUrl("https://prod-7gln35vf511d8e79-1326501488.tcloudbaseapp.com");
+                        ShopAccount account = ShopAccountServiceImpl.getAccountById(Integer.parseInt(eventKey));
+                        article.setTitle("欢迎光临“"+account.getName()+"”，点击进入");
+                        article.setDescription("嗨燥祝各位客观玩的尽兴");
+                        article.setPicUrl("https://7072-prod-7gln35vf511d8e79-1326501488.tcb.qcloud.la/logo.jpg?sign=d49b4376fb328b8b5ef9e5dc6519551f&t=1716028256");
+                        article.setUrl("https://prod-7gln35vf511d8e79-1326501488.tcloudbaseapp.com?shopId="+eventKey);
                         List<Article> articles = new ArrayList<>();
                         articles.add(article);
                         NewsMessage newsMessage = new NewsMessage();
@@ -111,10 +118,11 @@ public class CoreService {
                 else if(eventType.equals(MessageUtil.EVENT_TYPE_SCAN)){
                     String eventKey = requestMap.get("EventKey");
                     Article article = new Article();
-                    article.setTitle("测试标题");
-                    article.setDescription("这是一句测试文案，参数是:"+eventKey);
-                    article.setPicUrl("https://7072-prod-7gln35vf511d8e79-1326501488.tcb.qcloud.la/0001.jpg?sign=5ffc77968440200f059ae3b6b96db22a&t=1715529933");
-                    article.setUrl("https://prod-7gln35vf511d8e79-1326501488.tcloudbaseapp.com");
+                    ShopAccount account = ShopAccountServiceImpl.getAccountById(Integer.parseInt(eventKey));
+                    article.setTitle("欢迎光临“"+account.getName()+"”，点击进入");
+                    article.setDescription("嗨燥祝各位客观玩的尽兴");
+                    article.setPicUrl("https://7072-prod-7gln35vf511d8e79-1326501488.tcb.qcloud.la/logo.jpg?sign=d49b4376fb328b8b5ef9e5dc6519551f&t=1716028256");
+                    article.setUrl("https://prod-7gln35vf511d8e79-1326501488.tcloudbaseapp.com?shopId="+eventKey);
                     List<Article> articles = new ArrayList<>();
                     articles.add(article);
                     NewsMessage newsMessage = new NewsMessage();

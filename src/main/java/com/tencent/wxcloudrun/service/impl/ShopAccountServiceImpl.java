@@ -18,12 +18,11 @@ public class ShopAccountServiceImpl implements ShopAccountService {
 
     private BCryptPasswordEncoder encoder;
 
-    final ShopAccountMapper shopAccountMapper;
-    private final WxService wxService;
+    static ShopAccountMapper shopAccountMapper = null;
+    final WxService wxService;
 
-    public ShopAccountServiceImpl(@Autowired ShopAccountMapper shopAccountMapper,
-                                  @Autowired BCryptPasswordEncoder encoder, WxService wxService) {
-        this.shopAccountMapper = shopAccountMapper;
+    public ShopAccountServiceImpl(@Autowired ShopAccountMapper shopAccountMapper, BCryptPasswordEncoder encoder, WxService wxService) {
+        ShopAccountServiceImpl.shopAccountMapper = shopAccountMapper;
         this.encoder = encoder;
         this.wxService = wxService;
     }
@@ -32,6 +31,10 @@ public class ShopAccountServiceImpl implements ShopAccountService {
         QueryWrapper<ShopAccount> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("phone", phone);
         return shopAccountMapper.selectOne(queryWrapper);
+    }
+
+    public static ShopAccount getAccountById(Integer id) {
+        return shopAccountMapper.selectById(id);
     }
 
     @Override
