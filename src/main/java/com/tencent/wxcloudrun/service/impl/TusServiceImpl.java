@@ -60,7 +60,7 @@ public class TusServiceImpl implements TusService {
     @Override
     public List<TusRecord> getNewTusRecordList(Integer shopId) {
         QueryWrapper<TusRecord> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("shopId", shopId);
+        queryWrapper.eq("shop_id", shopId);
         queryWrapper.eq("type",1);
         queryWrapper.orderByAsc("create_time");
         return tusRecordMapper.selectList(queryWrapper);
