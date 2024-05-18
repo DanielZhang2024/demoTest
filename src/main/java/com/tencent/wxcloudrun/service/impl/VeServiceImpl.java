@@ -55,7 +55,7 @@ public class VeServiceImpl implements VeService {
     @Override
     public List<VeRecord> getNewVeRecordList(Integer shopId) {
         QueryWrapper<VeRecord> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("shopId", shopId);
+        queryWrapper.eq("shop_id", shopId);
         queryWrapper.eq("type",1);
         queryWrapper.orderByAsc("create_time");
         return veRecordMapper.selectList(queryWrapper);

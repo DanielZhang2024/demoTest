@@ -71,7 +71,7 @@ public class TusServiceImpl implements TusService {
         Page<TusRecord> page = new Page<>(1, 10);
 
         QueryWrapper<TusRecord> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("shopId", shopId);
+        queryWrapper.eq("shop_id", shopId);
         queryWrapper.eq("type",2);
         queryWrapper.orderByDesc("create_time");
 

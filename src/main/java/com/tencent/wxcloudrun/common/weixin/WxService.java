@@ -33,11 +33,11 @@ public class WxService {
 
     final Logger logger = LoggerFactory.getLogger(WxService.class);
 
-//    private String appid = "wxdfccfc491bf90233";
-//    private String appSecret = "fa4087c4a374a54460836617a996f873";
+    private String appid = "wxdfccfc491bf90233";
+    private String appSecret = "fa4087c4a374a54460836617a996f873";
 
-    private String appid = "wx062f4f8f489f57a3";
-    private String appSecret = "4115bc85b36c527bdbbf30baebe98644";
+//    private String appid = "wx062f4f8f489f57a3";
+//    private String appSecret = "4115bc85b36c527bdbbf30baebe98644";
     private AccessToken accessToken = null;
     // 获取access_token的接口地址（GET） 限200（次/天）
     public final static String access_token_url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";

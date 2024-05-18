@@ -91,7 +91,7 @@ public class UserServiceImpl implements UserService {
         Page<User> page = new Page<>(1, 3);
 
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("curShopId",shopId);
+        queryWrapper.eq("cur_shop_id",shopId);
         queryWrapper.orderByDesc("level");
 
         IPage<User> iPage = userMapper.selectPage(page, queryWrapper);
