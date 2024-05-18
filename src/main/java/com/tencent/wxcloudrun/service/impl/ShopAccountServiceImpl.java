@@ -65,7 +65,8 @@ public class ShopAccountServiceImpl implements ShopAccountService {
         if(shopAccount.getQrCode() == null || shopAccount.getQrCode().isEmpty()){
             //获取二维码存入表内
             String qrCodeUrl = wxService.getQrCodeUrl(shopAccount.getId());
-            shopAccount.setQrCode(qrCodeUrl);
+            String replace = qrCodeUrl.replace("https://7072-prod-7gln35vf511d8e79-1326501488.cos.ap-shanghai.myqcloud.com", "");
+            shopAccount.setQrCode(replace);
             shopAccountMapper.updateById(shopAccount);
         }
         return ApiResponse.ok(shopAccount);
