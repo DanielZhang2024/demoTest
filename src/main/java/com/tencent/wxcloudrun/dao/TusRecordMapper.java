@@ -1,10 +1,10 @@
 package com.tencent.wxcloudrun.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.tencent.wxcloudrun.model.ShopAccount;
+import com.tencent.wxcloudrun.model.TusRecord;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
-public interface ShopAccountMapper extends BaseMapper<ShopAccount> {
+public interface TusRecordMapper extends BaseMapper<TusRecord> {
 
 }

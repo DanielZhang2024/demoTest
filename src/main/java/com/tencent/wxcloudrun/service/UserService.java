@@ -1,15 +1,17 @@
 package com.tencent.wxcloudrun.service;
 
-import com.tencent.wxcloudrun.model.ShopAccount;
+import com.tencent.wxcloudrun.common.utils.ApiResponse;
+import com.tencent.wxcloudrun.common.weixin.utils.WxUserInfo;
+import com.tencent.wxcloudrun.model.User;
 
-import java.util.Optional;
+import java.util.List;
 
 public interface UserService {
 
-    //用户登录，根据openid获取用户
-    Optional<ShopAccount> getAccount(String phone, String password);
-
-    void insertAccount(ShopAccount shopAccount);
-
-    void clearCount(Integer id);
+    void updateUserInfo(User user, WxUserInfo wxUserInfo);
+    void createUser(User user, WxUserInfo wxUserInfo);
+    ApiResponse login(String code, Integer shopId);
+    User getUserByOpenId(String openId);
+    User updateUserLevel(User user);
+    List<User> getUserListRank3(Integer shopId);
 }

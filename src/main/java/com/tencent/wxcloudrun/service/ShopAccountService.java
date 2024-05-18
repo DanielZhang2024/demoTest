@@ -1,5 +1,6 @@
 package com.tencent.wxcloudrun.service;
 
+import com.tencent.wxcloudrun.common.utils.ApiResponse;
 import com.tencent.wxcloudrun.model.Counter;
 import com.tencent.wxcloudrun.model.ShopAccount;
 
@@ -7,9 +8,7 @@ import java.util.Optional;
 
 public interface ShopAccountService {
 
-  Optional<ShopAccount> getAccount(String phone, String password);
+    ApiResponse register(ShopAccount shopAccount);
 
-  void insertAccount(ShopAccount shopAccount);
-
-  void clearCount(Integer id);
+    ApiResponse loginAccount(String phone, String password);
 }

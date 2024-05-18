@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface CounterService {
 
-  Optional<Counter> getCounter(Integer id);
+  Counter getCounter(Integer id);
 
   void upsertCount(Counter counter);
 

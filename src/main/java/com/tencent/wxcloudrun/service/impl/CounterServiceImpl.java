@@ -19,18 +19,18 @@ public class CounterServiceImpl implements CounterService {
   }
 
   @Override
-  public Optional<Counter> getCounter(Integer id) {
-    return Optional.ofNullable(countersMapper.getCounter(id));
+  public Counter getCounter(Integer id) {
+    return countersMapper.selectById(id);
   }
 
   @Override
   public void upsertCount(Counter counter) {
-    countersMapper.upsertCount(counter);
+    countersMapper.updateById(counter);
   }
 
   @Override
   public void clearCount(Integer id) {
-    countersMapper.clearCount(id);
+    countersMapper.deleteById(id);
 
   }
 }
