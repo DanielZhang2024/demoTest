@@ -87,7 +87,9 @@ public class CoreService {
                     String eventKey = requestMap.get("EventKey");
                     if( eventKey != null){
                         Article article = new Article();
-                        ShopAccount account = ShopAccountServiceImpl.getAccountById(Integer.parseInt(eventKey));
+                        String[] s = eventKey.split("_");
+                        String s1 = s[1];
+                        ShopAccount account = ShopAccountServiceImpl.getAccountById(Integer.parseInt(s1));
                         article.setTitle("欢迎光临“"+account.getName()+"”，点击进入");
                         article.setDescription("嗨燥祝各位客观玩的尽兴");
                         article.setPicUrl("https://7072-prod-7gln35vf511d8e79-1326501488.tcb.qcloud.la/logo.jpg?sign=d49b4376fb328b8b5ef9e5dc6519551f&t=1716028256");
