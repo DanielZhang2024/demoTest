@@ -35,7 +35,6 @@ public class WxService {
 
     private String appid = "wxdfccfc491bf90233";
     private String appSecret = "fa4087c4a374a54460836617a996f873";
-
 //    private String appid = "wx062f4f8f489f57a3";
 //    private String appSecret = "4115bc85b36c527bdbbf30baebe98644";
     private AccessToken accessToken = null;
