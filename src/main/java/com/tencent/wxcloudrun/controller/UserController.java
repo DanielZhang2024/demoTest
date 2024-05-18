@@ -46,19 +46,40 @@ public class UserController {
 
     //take up screen
     @PostMapping("/tus/send")
-    public ApiResponse sendTusMsg(@RequestParam String openid, @RequestParam String msg, @RequestParam String imgUrl, @RequestParam Integer tusId, @RequestParam Integer shopId){
+    public ApiResponse sendTusMsg(@RequestBody JSONObject jsonObject){
+        String openid = jsonObject.getString("openid");
+        Integer shopId = jsonObject.getInt("shopId");
+        String msg = jsonObject.getString("msg");
+        String imgUrl = jsonObject.getString("imgUrl");
+        Integer tusId = jsonObject.getInt("tusId");
+        if(openid == null || msg == null || imgUrl == null){
+            return ApiResponse.error("参数错误");
+        }
         return tusService.send(openid,msg,imgUrl,tusId,shopId);
     }
 
     //bullet screen chat
     @PostMapping("/dsc/send")
-    public ApiResponse sendDscMsg(@RequestParam String openid, @RequestParam String msg, @RequestParam Integer dscId, @RequestParam Integer shopId){
-        return dscService.send(openid,msg,dscId,shopId);
+    public ApiResponse sendDscMsg(@RequestBody JSONObject jsonObject){
+        String openid = jsonObject.getString("openid");
+        String shopId = jsonObject.getString("shopId");
+        String msg = jsonObject.getString("msg");
+        Integer dscId = jsonObject.getInt("dscId");
+        if(openid == null || msg == null){
+            return ApiResponse.error("参数错误");
+        }
+        return dscService.send(openid,msg,dscId,Integer.parseInt(shopId));
     }
 
     //Vehicle entry
     @PostMapping("/ve/send")
-    public ApiResponse sendVeMsg(@RequestParam String openid, @RequestParam Integer veId, @RequestParam Integer shopId){
+    public ApiResponse sendVeMsg(@RequestBody JSONObject jsonObject){
+        String openid = jsonObject.getString("openid");
+        Integer shopId = jsonObject.getInt("shopId");
+        Integer veId = jsonObject.getInt("veId");
+        if(openid == null){
+            return ApiResponse.error("参数错误");
+        }
         return veService.send(openid,veId,shopId);
     }
 
