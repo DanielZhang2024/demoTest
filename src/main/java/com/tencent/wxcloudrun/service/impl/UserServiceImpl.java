@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
         user.setNickname(wxUserInfo.getNickname());
         user.setHeadImgUrl(wxUserInfo.getHeadimgurl());
         user.setSex(wxUserInfo.getSex());
-        user.setHeadBox("默认头像kuang");
+        user.setHeadBox("https://7072-prod-7gln35vf511d8e79-1326501488.tcb.qcloud.la/defaultHeadBox.webp?sign=3f4f3aa3c868b83d3068ba93712f3052&t=1716029054");
         userMapper.insert(user);
     }
 
