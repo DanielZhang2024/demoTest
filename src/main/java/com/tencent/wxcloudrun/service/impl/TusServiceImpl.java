@@ -49,6 +49,7 @@ public class TusServiceImpl implements TusService {
         }
         tusRecord.setCreateTime(new Date());
         tusRecord.setType(1);
+        tusRecord.setDuration(60);
         tusRecord.setShopId(shopId);
         tusRecordMapper.insert(tusRecord);
         return ApiResponse.ok(tusRecord);

@@ -24,4 +24,5 @@ public class TusRecord {
     private Date createTime;
     private Integer type;
     private Integer shopId;
+    private Integer duration;
 }
