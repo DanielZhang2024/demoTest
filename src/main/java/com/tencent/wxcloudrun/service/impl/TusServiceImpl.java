@@ -4,15 +4,12 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tencent.wxcloudrun.common.utils.ApiResponse;
-import com.tencent.wxcloudrun.common.weixin.WxService;
 import com.tencent.wxcloudrun.dao.TusRecordMapper;
-import com.tencent.wxcloudrun.dao.UserMapper;
 import com.tencent.wxcloudrun.model.TusRecord;
 import com.tencent.wxcloudrun.model.User;
 import com.tencent.wxcloudrun.service.TusService;
 import com.tencent.wxcloudrun.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -46,9 +43,9 @@ public class TusServiceImpl implements TusService {
         tusRecord.setImgList(imgUrl);
         tusRecord.setTusId(tusId);
         if(tusId == 1){
-            tusRecord.setTusImgUrl("23");
+            tusRecord.setTusImgUrl("https://7072-prod-7gln35vf511d8e79-1326501488.tcb.qcloud.la/tus/1.png");
         }else {
-            tusRecord.setTusImgUrl("12");
+            tusRecord.setTusImgUrl("https://7072-prod-7gln35vf511d8e79-1326501488.tcb.qcloud.la/tus/2.png");
         }
         tusRecord.setCreateTime(new Date());
         tusRecord.setType(1);
