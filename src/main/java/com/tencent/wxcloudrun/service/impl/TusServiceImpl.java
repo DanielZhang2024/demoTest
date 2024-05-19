@@ -51,10 +51,11 @@ public class TusServiceImpl implements TusService {
                 try {
                     BufferedImage image = ImageIO.read(new URL(s));
                     if (image != null) {
+                        String replace = s.replace("https://7072-prod-7gln35vf511d8e79-1326501488.cos.ap-shanghai.myqcloud.com", "");
                         int width = image.getWidth();
                         int height = image.getHeight();
-                        s += "?width=" + width + "&height=" + height;
-                        sb.append(s).append(",");
+                        replace += "?width=" + width + "&height=" + height;
+                        sb.append(replace).append(",");
                     } else {
                         System.out.println("图片无法加载");
                     }
@@ -68,9 +69,9 @@ public class TusServiceImpl implements TusService {
         }
         tusRecord.setTusId(tusId);
         if(tusId == 1){
-            tusRecord.setTusImgUrl("https://7072-prod-7gln35vf511d8e79-1326501488.tcb.qcloud.la/tus/1.png");
+            tusRecord.setTusImgUrl("/tus/1.png");
         }else {
-            tusRecord.setTusImgUrl("https://7072-prod-7gln35vf511d8e79-1326501488.tcb.qcloud.la/tus/2.png");
+            tusRecord.setTusImgUrl("/tus/2.png");
         }
         tusRecord.setCreateTime(new Date());
         tusRecord.setType(1);
