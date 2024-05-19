@@ -12,6 +12,10 @@ import com.tencent.wxcloudrun.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URL;
 import java.util.*;
 
 @Service
@@ -40,7 +44,28 @@ public class TusServiceImpl implements TusService {
         tusRecord.setHeadImgUrl(user.getHeadImgUrl());
         tusRecord.setLevel(user.getLevel());
         tusRecord.setContent(msg);
-        tusRecord.setImgList(imgUrl);
+        if(imgUrl != null && !imgUrl.isEmpty()) {
+            String[] split = imgUrl.split(",");
+            StringBuilder sb = new StringBuilder();
+            for(String s : split) {
+                try {
+                    BufferedImage image = ImageIO.read(new URL(s));
+                    if (image != null) {
+                        int width = image.getWidth();
+                        int height = image.getHeight();
+                        s += "?width=" + width + "&height=" + height;
+                        sb.append(s).append(",");
+                    } else {
+                        System.out.println("图片无法加载");
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    System.out.println("读取图片时发生错误");
+                }
+            }
+            sb.deleteCharAt(sb.length() - 1);
+            tusRecord.setImgList(sb.toString());
+        }
         tusRecord.setTusId(tusId);
         if(tusId == 1){
             tusRecord.setTusImgUrl("https://7072-prod-7gln35vf511d8e79-1326501488.tcb.qcloud.la/tus/1.png");
