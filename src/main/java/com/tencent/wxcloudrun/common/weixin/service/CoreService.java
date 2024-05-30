@@ -93,7 +93,8 @@ public class CoreService {
                         article.setTitle("欢迎光临“"+account.getName()+"”，点击进入");
                         article.setDescription("嗨燥祝各位客观玩的尽兴");
                         article.setPicUrl("https://7072-prod-7gln35vf511d8e79-1326501488.tcb.qcloud.la/logo.jpg?sign=d49b4376fb328b8b5ef9e5dc6519551f&t=1716028256");
-                        article.setUrl("https://prod-7gln35vf511d8e79-1326501488.tcloudbaseapp.com?shopId="+s1);
+//                        article.setUrl("https://prod-7gln35vf511d8e79-1326501488.tcloudbaseapp.com?shopId="+s1);
+                        article.setUrl("http://192.168.0.19:8081?shopId="+account.getId());
                         List<Article> articles = new ArrayList<>();
                         articles.add(article);
                         NewsMessage newsMessage = new NewsMessage();
@@ -124,7 +125,8 @@ public class CoreService {
                     article.setTitle("欢迎光临“"+account.getName()+"”，点击进入");
                     article.setDescription("嗨燥祝各位客观玩的尽兴");
                     article.setPicUrl("https://7072-prod-7gln35vf511d8e79-1326501488.tcb.qcloud.la/logo.jpg?sign=d49b4376fb328b8b5ef9e5dc6519551f&t=1716028256");
-                    article.setUrl("https://prod-7gln35vf511d8e79-1326501488.tcloudbaseapp.com?shopId="+eventKey);
+                    article.setUrl("https://prod-7gln35vf511d8e79-1326501488.tcloudbaseapp.com?shopId="+account.getId());
+//                    article.setUrl("http://192.168.0.19:8081?shopId="+account.getId());
                     List<Article> articles = new ArrayList<>();
                     articles.add(article);
                     NewsMessage newsMessage = new NewsMessage();

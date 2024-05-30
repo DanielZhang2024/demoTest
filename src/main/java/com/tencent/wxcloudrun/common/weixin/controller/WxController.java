@@ -25,9 +25,10 @@ public class WxController {
 
     @Resource
     private RestTemplate restTemplate;
-
+    //线上
     String appId = "wxdfccfc491bf90233";
     String appSecret = "fa4087c4a374a54460836617a996f873";
+    //本地
 //    String appId = "wx062f4f8f489f57a3";
 //    String appSecret = "4115bc85b36c527bdbbf30baebe98644";
 

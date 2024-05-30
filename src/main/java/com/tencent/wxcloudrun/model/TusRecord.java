@@ -25,4 +25,5 @@ public class TusRecord {
     private Integer type;
     private Integer shopId;
     private Integer duration;
+    private Integer typeee;
 }

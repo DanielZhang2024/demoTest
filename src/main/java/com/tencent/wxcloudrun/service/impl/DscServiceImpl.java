@@ -22,10 +22,12 @@ import java.util.List;
 @Service
 public class DscServiceImpl implements DscService {
 
+    final TusRecordMapper tusRecordMapper;
     final DscRecordMapper dscRecordMapper;
     final UserService userService;
 
-    public DscServiceImpl(@Autowired DscRecordMapper dscRecordMapper, UserService userService) {
+    public DscServiceImpl(@Autowired TusRecordMapper tusRecordMapper, DscRecordMapper dscRecordMapper, UserService userService) {
+        this.tusRecordMapper = tusRecordMapper;
         this.dscRecordMapper = dscRecordMapper;
         this.userService = userService;
     }
@@ -54,7 +56,21 @@ public class DscServiceImpl implements DscService {
         dscRecord.setType(1);
         dscRecord.setShopId(shopId);
         dscRecordMapper.insert(dscRecord);
-        return ApiResponse.ok(dscRecord);
+
+        TusRecord tusRecord = new TusRecord();
+        tusRecord.setUserId(user.getId());
+        tusRecord.setNickname(user.getNickname());
+        tusRecord.setHeadBox(user.getHeadBox());
+        tusRecord.setHeadImgUrl(user.getHeadImgUrl());
+        tusRecord.setLevel(user.getLevel());
+        tusRecord.setContent(msg);
+        tusRecord.setTusId(dscId);
+        tusRecord.setCreateTime(new Date());
+        tusRecord.setType(1);
+        tusRecord.setShopId(shopId);
+        tusRecord.setTypeee(2);
+        tusRecordMapper.insert(tusRecord);
+        return ApiResponse.ok(tusRecord);
     }
 
     @Override

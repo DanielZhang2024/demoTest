@@ -51,7 +51,7 @@ public class TusServiceImpl implements TusService {
                 try {
                     BufferedImage image = ImageIO.read(new URL(s));
                     if (image != null) {
-                        String replace = s.replace("https://7072-prod-7gln35vf511d8e79-1326501488.cos.ap-shanghai.myqcloud.com", "");
+                        String replace = s.replace("https://7072-prod-7gln35vf511d8e79-1326501488.tcb.qcloud.la", "");
                         int width = image.getWidth();
                         int height = image.getHeight();
                         replace += "?width=" + width + "&height=" + height;
@@ -77,6 +77,7 @@ public class TusServiceImpl implements TusService {
         tusRecord.setType(1);
         tusRecord.setDuration(60);
         tusRecord.setShopId(shopId);
+        tusRecord.setTypeee(1);
         tusRecordMapper.insert(tusRecord);
         return ApiResponse.ok(tusRecord);
     }
@@ -86,6 +87,7 @@ public class TusServiceImpl implements TusService {
         QueryWrapper<TusRecord> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("shop_id", shopId);
         queryWrapper.eq("type",1);
+        queryWrapper.eq("typeee",1);
         queryWrapper.orderByAsc("create_time");
         return tusRecordMapper.selectList(queryWrapper);
     }
@@ -97,6 +99,7 @@ public class TusServiceImpl implements TusService {
         QueryWrapper<TusRecord> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("shop_id", shopId);
         queryWrapper.eq("type",2);
+        queryWrapper.eq("typeee",1);
         queryWrapper.orderByDesc("create_time");
 
         IPage<TusRecord> iPage = tusRecordMapper.selectPage(page, queryWrapper);
@@ -109,6 +112,20 @@ public class TusServiceImpl implements TusService {
         TusRecord tusRecord = tusRecordMapper.selectById(id);
         tusRecord.setType(2);
         tusRecordMapper.updateById(tusRecord);
+    }
+
+    @Override
+    public List<TusRecord> getTusRecordListForH5(Integer shopId, Integer lastId) {
+        Page<TusRecord> page = new Page<>(1, 10);
+        QueryWrapper<TusRecord> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("shop_id", shopId);
+        if(lastId != null) {
+            queryWrapper.lt("id", lastId);
+        }
+        queryWrapper.orderByDesc("create_time");
+
+        IPage<TusRecord> tusRecordPage = tusRecordMapper.selectPage(page, queryWrapper);
+        return tusRecordPage.getRecords();
     }
 
 }

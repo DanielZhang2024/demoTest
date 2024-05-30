@@ -14,4 +14,6 @@ public interface TusService {
     List<TusRecord> getLastTusRecordList(Integer shopId);
 
     void playComplete(Integer id);
+
+    List<TusRecord> getTusRecordListForH5(Integer shopId, Integer lastId);
 }

@@ -2,6 +2,7 @@ package com.tencent.wxcloudrun.controller;
 
 
 import com.tencent.wxcloudrun.common.utils.ApiResponse;
+import com.tencent.wxcloudrun.model.TusRecord;
 import com.tencent.wxcloudrun.model.User;
 import com.tencent.wxcloudrun.service.DscService;
 import com.tencent.wxcloudrun.service.TusService;
@@ -11,8 +12,7 @@ import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.Map;
+import java.util.List;
 
 @RestController
 public class UserController {
@@ -62,13 +62,13 @@ public class UserController {
     @PostMapping("/dsc/send")
     public ApiResponse sendDscMsg(@RequestBody JSONObject jsonObject){
         String openid = jsonObject.getString("openid");
-        String shopId = jsonObject.getString("shopId");
+        Integer shopId = jsonObject.getInt("shopId");
         String msg = jsonObject.getString("msg");
         Integer dscId = jsonObject.getInt("dscId");
         if(openid == null || msg == null){
             return ApiResponse.error("参数错误");
         }
-        return dscService.send(openid,msg,dscId,Integer.parseInt(shopId));
+        return dscService.send(openid,msg,dscId,shopId);
     }
 
     //Vehicle entry
@@ -83,5 +83,12 @@ public class UserController {
         return veService.send(openid,veId,shopId);
     }
 
-
+    @PostMapping("/chat/his")
+    public ApiResponse chatHis(@RequestBody JSONObject jsonObject){
+        Integer lastId = jsonObject.getInt("lastId");
+        Integer shopId = jsonObject.getInt("shopId");
+        List<TusRecord> tusRecordListForH5 = tusService.getTusRecordListForH5(shopId, lastId);
+        System.out.println("请求的参数为lastId"+lastId+tusRecordListForH5.toString());
+        return ApiResponse.ok(tusRecordListForH5);
+    }
 }

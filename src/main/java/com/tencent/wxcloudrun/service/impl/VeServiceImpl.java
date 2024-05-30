@@ -3,6 +3,7 @@ package com.tencent.wxcloudrun.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.tencent.wxcloudrun.common.utils.ApiResponse;
 import com.tencent.wxcloudrun.dao.DscRecordMapper;
+import com.tencent.wxcloudrun.dao.TusRecordMapper;
 import com.tencent.wxcloudrun.dao.VeRecordMapper;
 import com.tencent.wxcloudrun.model.DscRecord;
 import com.tencent.wxcloudrun.model.TusRecord;
@@ -20,10 +21,12 @@ import java.util.List;
 public class VeServiceImpl implements VeService {
     final VeRecordMapper veRecordMapper;
     final UserService userService;
+    final TusRecordMapper tusRecordMapper;
 
-    public VeServiceImpl(@Autowired VeRecordMapper veRecordMapper, UserService userService) {
+    public VeServiceImpl(@Autowired VeRecordMapper veRecordMapper, UserService userService, TusRecordMapper tusRecordMapper) {
         this.veRecordMapper = veRecordMapper;
         this.userService = userService;
+        this.tusRecordMapper = tusRecordMapper;
     }
 
     @Override
@@ -49,7 +52,21 @@ public class VeServiceImpl implements VeService {
         veRecord.setType(1);
         veRecord.setShopId(shopId);
         veRecordMapper.insert(veRecord);
-        return ApiResponse.ok(veRecord);
+
+
+        TusRecord tusRecord = new TusRecord();
+        tusRecord.setUserId(user.getId());
+        tusRecord.setNickname(user.getNickname());
+        tusRecord.setHeadBox(user.getHeadBox());
+        tusRecord.setHeadImgUrl(user.getHeadImgUrl());
+        tusRecord.setLevel(user.getLevel());
+        tusRecord.setTusId(veId);
+        tusRecord.setCreateTime(new Date());
+        tusRecord.setType(1);
+        tusRecord.setShopId(shopId);
+        tusRecord.setTypeee(3);
+        tusRecordMapper.insert(tusRecord);
+        return ApiResponse.ok(tusRecord);
     }
 
     @Override
