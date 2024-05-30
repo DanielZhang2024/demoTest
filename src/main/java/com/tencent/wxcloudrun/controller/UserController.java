@@ -4,6 +4,7 @@ package com.tencent.wxcloudrun.controller;
 import com.tencent.wxcloudrun.common.utils.ApiResponse;
 import com.tencent.wxcloudrun.model.TusRecord;
 import com.tencent.wxcloudrun.model.User;
+import com.tencent.wxcloudrun.model.VeRecord;
 import com.tencent.wxcloudrun.service.DscService;
 import com.tencent.wxcloudrun.service.TusService;
 import com.tencent.wxcloudrun.service.UserService;
@@ -12,6 +13,8 @@ import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -38,11 +41,32 @@ public class UserController {
         if(!loginRet.isOk()){
             return loginRet;
         }
-//        User user = (User) loginRet.getData();
+        User user = (User) loginRet.getData();
         //随机发送一个入场效果
         //每日一次
-//        veService.send(user.getOpenid(),1,shopId);
+        List<VeRecord> newVeRecordList = veService.getNewVeRecordList(shopId);
+        boolean today = false;
+        if(!newVeRecordList.isEmpty()){
+            VeRecord veRecord = newVeRecordList.get(newVeRecordList.size() - 1);
+            Date createTime = veRecord.getCreateTime();
+            today = isToday(createTime);
+        }
+        if(!today){
+            veService.send(user.getOpenid(),1,shopId);
+        }
+
+
         return loginRet;
+    }
+
+    public static boolean isToday(Date date) {
+        Calendar today = Calendar.getInstance();
+        Calendar specifiedDate = Calendar.getInstance();
+        specifiedDate.setTime(date);
+
+        return today.get(Calendar.YEAR) == specifiedDate.get(Calendar.YEAR)
+                && today.get(Calendar.MONTH) == specifiedDate.get(Calendar.MONTH)
+                && today.get(Calendar.DAY_OF_MONTH) == specifiedDate.get(Calendar.DAY_OF_MONTH);
     }
 
     //take up screen
