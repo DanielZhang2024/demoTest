@@ -34,7 +34,7 @@ public class WxService {
     final Logger logger = LoggerFactory.getLogger(WxService.class);
     //线上
     private String appid = "wxdfccfc491bf90233";
-    private String appSecret = "fa4087c4a374a54460836617a996f873";
+    private String appSecret = "82af1ab22279415eca7a0e58c962f8d3";
     //本地
 //    private String appid = "wx062f4f8f489f57a3";
 //    private String appSecret = "4115bc85b36c527bdbbf30baebe98644";
@@ -56,7 +56,7 @@ public class WxService {
                     this.accessToken.setExpiresTiem(System.currentTimeMillis() + accessToken.getExpiresIn() * 1000L);
                 } catch (JSONException e) {
                     accessToken = null;
-//                    logger.error("获取日志失败{}", e.getMessage());
+                    logger.error("获取日志失败{}", e.getMessage());
                 }
             }
             return accessToken;
