@@ -48,6 +48,7 @@ public class WxService {
             JSONObject jsonObject = restTemplate.getForObject(requestUrl, JSONObject.class);
             // 如果请求成功
             if (null != jsonObject) {
+                System.out.println(jsonObject.toString());
                 try {
                     accessToken = new AccessToken();
                     accessToken.setToken(jsonObject.getString("access_token"));
