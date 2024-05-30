@@ -38,9 +38,10 @@ public class UserController {
         if(!loginRet.isOk()){
             return loginRet;
         }
-        User user = (User) loginRet.getData();
+//        User user = (User) loginRet.getData();
         //随机发送一个入场效果
-        veService.send(user.getOpenid(),1,shopId);
+        //每日一次
+//        veService.send(user.getOpenid(),1,shopId);
         return loginRet;
     }
 
