@@ -67,7 +67,7 @@ public class WxService {
 
     }
 
-
+    //大吉大利
     public JSONObject getQrcodeTicket(Integer id){
         String qrcodeTicketUrl = "https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=ACCESS_TOKEN";
 
