@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface VeService {
 
+    //今晚吃鸡
     ApiResponse send(String openid, Integer veId, Integer shopId);
     List<VeRecord> getNewVeRecordList(Integer shopId);
     void playComplete(Integer id);
